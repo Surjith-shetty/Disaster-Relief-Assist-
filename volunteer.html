@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Relief Assistance Portal</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        :root {
+            --primary: #1a56db;
+            --primary-dark: #1e429f;
+            --primary-light: #dbeafe;
+            --secondary: #60a5fa;
+            --light: #f3f4f6;
+            --dark: #1f2937;
+            --success: #059669;
+            --danger: #dc2626;
+            --body-bg: #f9fafb;
+            --card-bg: #ffffff;
+            --text: #374151;
+            --border: #d1d5db;
+        }
+
+        .dark-mode {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-light: #1e3a8a;
+            --secondary: #93c5fd;
+            --light: #1f2937;
+            --dark: #f9fafb;
+            --body-bg: #111827;
+            --card-bg: #1f2937;
+            --text: #f9fafb;
+            --border: #374151;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--body-bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .role-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .role-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 250px;
+        }
+
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .role-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .role-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .role-card p {
+            color: var(--text);
+        }
+
+        h1, h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background-color: var(--card-bg);
+            color: var(--text);
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .back-btn {
+            background-color: var(--light);
+            color: var(--text);
+            border: 1px solid var(--border);
+            margin-right: 1rem;
+        }
+
+        .back-btn:hover {
+            background-color: var(--border);
+        }
+
+        .btn-secondary {
+            background-color: var(--light);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border);
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background-color: var(--light);
+            border-radius: 15px;
+            cursor: pointer;
+            margin-right: 8px;
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .dark-mode .toggle::after {
+            transform: translateX(30px);
+            background-color: var(--primary);
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            grid-column: span 2;
+        }
+
+        .section-title {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .info-text {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+
+        .dark-mode .info-text {
+            color: #9ca3af;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: var(--primary-light);
+            border-radius: 8px;
+            color: var(--primary-dark);
+        }
+
+        .dark-mode .welcome-section {
+            color: white;
+        }
+
+        .form-container {
+            display: none;
+        }
+
+        .form-container.active {
+            display: block;
+        }
+
+        .alert {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            background-color: #e9f6fd;
+            border-left: 4px solid var(--primary);
+            color: var(--primary-dark);
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .actions {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h2>Disaster Relief Portal</h2>
+        </div>
+        <nav>
+            <a href="/" id="homeLink"><i class="fas fa-home"></i> Home</a>
+            <div class="toggle-container">
+                <div class="toggle" id="darkModeToggle"></div>
+                <span id="modeText">Dark Mode</span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Role Selection Page -->
+        <div id="roleSelectorPage" class="container">
+            <div class="welcome-section">
+                <h1>Welcome to the Disaster Relief Assistance Portal</h1>
+                <p>Please select your role to continue. Your contribution can make a significant difference in disaster relief efforts.</p>
+            </div>
+
+            <div class="role-selector">
+                <div class="role-card" data-form="organizationForm">
+                    <i class="fas fa-building"></i>
+                    <h3>Organization</h3>
+                    <p>Register your organization to collaborate in disaster relief operations</p>
+                </div>
+                <div class="role-card" data-form="donationForm">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <h3>Donation</h3>
+                    <p>Donate resources, funds, or supplies to support relief efforts</p>
+                </div>
+                <div class="role-card" data-form="volunteerForm">
+                    <i class="fas fa-user-friends"></i>
+                    <h3>Volunteer</h3>
+                    <p>Offer your time and skills to help those affected by disasters</p>
+                </div>
+                <div class="role-card" data-form="vehicleForm">
+                    <i class="fas fa-truck"></i>
+                    <h3>Vehicle</h3>
+                    <p>Register vehicles for transportation and logistics support</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Organization Form -->
+        <div id="organizationForm" class="form-container">
+            <div class="card">
+                <h2>Organization Registration</h2>
+                <p class="info-text">Register your organization to participate in disaster relief operations and coordination.</p>
+                
+                <form id="orgForm">
+                    <div class="form-group">
+                        <label for="org_name">Organization Name*</label>
+                        <input type="text" id="org_name" name="org_name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="org_type">Organization Type*</label>
+                        <select id="org_type" name="org_type" required>
+                            <option value="">-- Select Type --</option>
+                            <option value="NGO">NGO</option>
+                            <option value="Government">Government Agency</option>
+                            <option value="International">International Organization</option>
+                            <option value="Medical">Medical Relief</option>
+                            <option value="Educational">Educational Institution</option>
+                            <option value="Private">Private Company</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact_person">Contact Person*</label>
+                        <input type="text" id="contact_person" name="contact_person" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email*</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone_number">Phone Number*</label>
+                        <input type="tel" id="phone_number" name="phone_number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Address*</label>
+                        <textarea id="address" name="address" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="website">Website</label>
+                        <input type="url" id="website" name="website" placeholder="https://example.org">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="org_description">Organization Description</label>
+                        <textarea id="org_description" name="org_description" placeholder="Brief description of your organization's mission and expertise"></textarea>
+                    </div>
+
+                    <div class="actions">
+                        <button type="button" class="back-btn" onclick="showRoleSelector()">Back</button>
+                        <button type="reset" class="btn-secondary">Clear Form</button>
+                        <button type="submit">Register Organization</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Donation Form -->
+        <div id="donationForm" class="form-container">
+            <div class="card">
+                <h2>Donation Submission</h2>
+                <p class="info-text">Your contributions can make a significant difference in the lives of those affected by disasters.</p>
+                
+                <form id="donForm">
+                    <div class="form-group">
+                        <label for="donor_name">Donor Name*</label>
+                        <input type="text" id="donor_name" name="donor_name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="donor_email">Donor Email</label>
+                        <input type="email" id="donor_email" name="donor_email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="donor_phone">Donor Phone</label>
+                        <input type="tel" id="donor_phone" name="donor_phone">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="donar_org">Donor Organization</label>
+                        <input type="text" id="donor_org" name="donor_org">
+                        <p class="info-text">Select the organization you're donating to (if applicable)</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="resource_id">Resource Type</label>
+                        <select id="resource_id" name="resource_id">
+                            <option value="">-- Select Resource --</option>
+                            <option value="1">Shelter Supplies</option>
+                            <option value="2">Medical Supplies</option>
+                            <option value="3">Food</option>
+                            <option value="4">Water</option>
+                            <option value="5">Clothing</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="donation_type">Donation Type*</label>
+                        <select id="donation_type" name="donation_type" required>
+                            <option value="">-- Select Type --</option>
+                            <option value="money">Money</option>
+                            <option value="food">Food</option>
+                            <option value="medicine">Medicine</option>
+                            <option value="clothing">Clothing</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="amountGroup">
+                        <label for="amount">Amount ($)</label>
+                        <input type="number" id="amount" name="amount" step="0.01" min="0">
+                        <p class="info-text">For monetary donations</p>
+                    </div>
+
+                    <div class="form-group" id="quantityGroup">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="quantity" name="quantity" min="0">
+                        <p class="info-text">For non-monetary donations</p>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" placeholder="Please describe your donation in detail"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="donation_status">Status*</label>
+                        <select id="donation_status" name="status" required>
+                            <option value="received">Received</option>
+                            <option value="processed">Processed</option>
+                            <option value="distributed">Distributed</option>
+                        </select>
+                    </div>
+
+                    <div class="actions">
+                        <button type="button" class="back-btn" onclick="showRoleSelector()">Back</button>
+                        <button type="reset" class="btn-secondary">Clear Form</button>
+                        <button type="submit">Submit Donation</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Volunteer Form -->
+        <div id="volunteerForm" class="form-container">
+            <div class="card">
+                <h2>Volunteer Registration</h2>
+                <p class="info-text">Join our network of volunteers to help those affected by disasters. Your skills and time can make a significant difference.</p>
+                
+                <form id="volForm">
+                    <div class="form-group">
+                        <label for="user_id">User ID*</label>
+                        <input type="number" id="user_id" name="user_id" required>
+                        <p class="info-text">Your user ID from the main system</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="vol_org_id">Organization</label>
+                        <select id="vol_org_id" name="org_id">
+                            <option value="">-- Select Organization --</option>
+                            <option value="1">Red Cross</option>
+                            <option value="2">Doctors Without Borders</option>
+                            <option value="3">UNICEF</option>
+                            <option value="4">World Vision</option>
+                            <option value="5">Salvation Army</option>
+                        </select>
+                        <p class="info-text">Select the organization you're affiliated with (if any)</p>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="skills">Skills & Expertise*</label>
+                        <textarea id="skills" name="skills" placeholder="List your skills relevant to disaster relief (medical, logistics, languages, etc.)" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="availability">Availability*</label>
+                        <select id="availability" name="availability" required>
+                            <option value="">-- Select Availability --</option>
+                            <option value="full-time">Full-time</option>
+                            <option value="part-time">Part-time</option>
+                            <option value="weekends">Weekends only</option>
+                            <option value="on-call">On-call</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="area_of_operation">Area of Operation</label>
+                        <input type="text" id="area_of_operation" name="area_of_operation" placeholder="City, region, or country">
+                        <p class="info-text">Where you're available to volunteer</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="vol_status">Status*</label>
+                        <select id="vol_status" name="status" required>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="on-mission">Currently on Mission</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <h3 class="section-title">Emergency Contact Information</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emergency_name">Emergency Contact Name*</label>
+                        <input type="text" id="emergency_name" name="emergency_name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emergency_phone">Emergency Contact Phone*</label>
+                        <input type="tel" id="emergency_phone" name="emergency_phone" required>
+                    </div>
+
+                    <div class="actions">
+                        <button type="button" class="back-btn" onclick="showRoleSelector()">Back</button>
+                        <button type="reset" class="btn-secondary">Clear Form</button>
+                        <button type="submit">Register as Volunteer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Vehicle Form -->
+        <div id="vehicleForm" class="form-container">
+            <div class="card">
+                <h2>Vehicle Registration</h2>
+                <p class="info-text">Register vehicles for transportation and logistics support in disaster relief operations.</p>
+                
+                <form id="vehForm">
+                    <div class="form-group">
+                        <label for="vehicle_type">Vehicle Type*</label>
+                        <select id="vehicle_type" name="vehicle_type" required>
+                            <option value="">-- Select Type --</option>
+                            <option value="ambulance">Ambulance</option>
+                            <option value="truck">Truck</option>
+                            <option value="boat">Boat</option>
+                            <option value="helicopter">Helicopter</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registration_number">Registration Number*</label>
+                        <input type="text" id="registration_number" name="registration_number" required>
+                        <p class="info-text">Vehicle's official registration number</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="capacity">Capacity (persons/tons)*</label>
+                        <input type="number" id="capacity" name="capacity" min="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="veh_org_id">Organization</label>
+                        <select id="veh_org_id" name="org_id">
+                            <option value="">-- Select Organization --</option>
+                            <option value="1">Red Cross</option>
+                            <option value="2">Doctors Without Borders</option>
+                            <option value="3">UNICEF</option>
+                            <option value="4">World Vision</option>
+                            <option value="5">Salvation Army</option>
+                        </select>
+                        <p class="info-text">Organization that owns or operates this vehicle</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="current_location">Current Location</label>
+                        <input type="text" id="current_location" name="current_location">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="veh_status">Status*</label>
+                        <select id="veh_status" name="status" required>
+                            <option value="available">Available</option>
+                            <option value="in-use">In Use</option>
+                            <option value="maintenance">Under Maintenance</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="vehicle_specifications">Vehicle Specifications</label>
+                        <textarea id="vehicle_specifications" name="vehicle_specifications" placeholder="Enter detailed specifications like fuel type, model, year, special equipment, etc."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="driver_name">Driver Name</label>
+                        <input type="text" id="driver_name" name="driver_name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="driver_contact">Driver Contact</label>
+                        <input type="tel" id="driver_contact" name="driver_contact">
+                    </div>
+
+                    <div class="actions">
+                        <button type="button" class="back-btn" onclick="showRoleSelector()">Back</button>
+                        <button type="reset" class="btn-secondary">Clear Form</button>
+                        <button type="submit">Register Vehicle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Disaster Relief Assistance Portal. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Dark mode toggle functionality
+        const toggle = document.getElementById('darkModeToggle');
+        const modeText = document.getElementById('modeText');
+        
+        toggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                modeText.textContent = 'Light Mode';
+            } else {
+                modeText.textContent = 'Dark Mode';
+            }
+        });
+
+        // Role selection and form display
+        const roleCards = document.querySelectorAll('.role-card');
+        const roleSelectorPage = document.getElementById('roleSelectorPage');
+        const homeLink = document.getElementById('homeLink');
+
+        roleCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const formId = card.getAttribute('data-form');
+                showForm(formId);
+            });
+        });
+
+        homeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showRoleSelector();
+        });
+
+        function showForm(formId) {
+            // Hide role selector
+            roleSelectorPage.style.display = 'none';
+            
+            // Hide all forms
+            document.querySelectorAll('.form-container').forEach(form => {
+                form.classList.remove('active');
+            });
+            
+            // Show selected form
+            document.getElementById(formId).classList.add('active');
+        }
+
+        function showRoleSelector() {
+            // Hide all forms
+            document.querySelectorAll('.form-container').forEach(form => {
+                form.classList.remove('active');
+            });
+            
+            // Show role selector
+            roleSelectorPage.style.display = 'block';
+        }
+
+        // Form submissions
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // In a real application, you would send the form data to the server
+                // For demonstration, just show an alert
+                const formName = form.id;
+                let message = '';
+                
+                switch(formName) {
+                    case 'orgForm':
+                        message = 'Organization registration submitted successfully!';
+                        break;
+                    case 'donForm':
+                        message = 'Thank you for your donation!';
+                        break;
+                    case 'volForm':
+                        message = 'Thank you for registering as a volunteer!';
+                        break;
+                    case 'vehForm':
+                        message = 'Vehicle registration submitted successfully!';
+                        break;
+                    default:
+                        message = 'Form submitted successfully!';
+                }
+                
+                alert(message);
+                form.reset();
+                showRoleSelector();
+            });
+        });
+
+        // Show/hide amount/quantity fields based on donation type
+        const donationType = document.getElementById('donation_type');
+        const amountGroup = document.getElementById('amountGroup');
+        const quantityGroup = document.getElementById('quantityGroup');
+
+        donationType.addEventListener('change', () => {
+            if (donationType.value === 'money') {
+                amountGroup.style.display = 'block';
+                quantityGroup.style.display = 'none';
+            } else if (donationType.value !== '') {
+                amountGroup.style.display = 'none';
+                quantityGroup.style.display = 'block';
+            } else {
+                amountGroup.style.display = 'block';
+                quantityGroup.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

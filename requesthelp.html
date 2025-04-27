@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Help - Disaster Management System</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --primary-dark: #0d47a1;
+            --primary-light: #e8f0fe;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --card-bg: #fff;
+            --border-color: #ddd;
+        }
+        
+        .dark-mode {
+            --primary-color: #4285f4;
+            --primary-dark: #2a56c6;
+            --primary-light: #2c3e50;
+            --text-color: #f0f0f0;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --border-color: #333;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .home-link {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+        
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--primary-dark);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+        
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        
+        .full-width {
+            grid-column: span 2;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        @media (max-width: 768px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+            
+            .full-width {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Disaster Management System</div>
+            <div class="nav-links">
+                <a href="/" class="nav-link home-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+                        <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
+                    </svg>
+                    Home
+                </a>
+                <a href="#" class="nav-link">Dashboard</a>
+                <a href="#" class="nav-link">Resources</a>
+                <a href="#" class="nav-link">Victims</a>
+            </div>
+            <div class="toggle-container">
+                <span>Dark Mode</span>
+                <label class="toggle">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <div class="card">
+            <h1>Request Help</h1>
+            <p>Complete this form to request resources for disaster victims. All requests will be prioritized based on urgency and availability.</p>
+            
+            <form id="helpRequestForm">
+                <div class="form-group">
+                    <label for="victimId">Victim ID</label>
+                    <input type="number" id="victimId" name="victimId" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="victimName">Victim Name</label>
+                    <input type="text" id="victimName" name="victimName" class="form-control" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label for="resourceId">Resource Type</label>
+                    <select id="resourceId" name="resourceId" class="form-control" required>
+                        <option value="">Select Resource</option>
+                        <option value="1">Water</option>
+                        <option value="2">Food</option>
+                        <option value="3">Medicine</option>
+                        <option value="4">Clothing</option>
+                        <option value="5">Shelter</option>
+                        <option value="6">First Aid Kit</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="quantity">Quantity Requested</label>
+                    <input type="number" id="quantity" name="quantity" min="1" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <select id="priority" name="priority" class="form-control" required>
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Current Location</label>
+                    <input type="text" id="location" name="location" class="form-control" readonly>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="notes">Additional Notes</label>
+                    <textarea id="notes" name="notes" rows="4" class="form-control"></textarea>
+                </div>
+                
+                <div class="form-group full-width">
+                    <button type="submit" class="btn">Submit Request</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="card">
+            <h2>My Previous Requests</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: var(--primary-light);">
+                        <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border-color);">Request ID</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border-color);">Resource</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border-color);">Quantity</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border-color);">Status</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border-color);">Priority</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border-color);">Requested Date</th>
+                    </tr>
+                </thead>
+                <tbody id="requestsTableBody">
+                    <tr>
+                        <td colspan="6" style="padding: 10px; text-align: center; border-bottom: 1px solid var(--border-color);">No previous requests found.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Dark mode toggle functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        
+        // Check for saved preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+        }
+        
+        darkModeToggle.addEventListener('change', () => {
+            if (darkModeToggle.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+        
+        // Form functionality
+        document.getElementById('victimId').addEventListener('change', function() {
+            // This would be replaced with an actual API call to fetch victim details
+            const victimId = this.value;
+            if (victimId) {
+                // Simulating fetch of victim data
+                fetchVictimData(victimId);
+            }
+        });
+        
+        function fetchVictimData(victimId) {
+            // Simulated data - in a real application, this would be an API call
+            const victimData = {
+                name: "John Doe",
+                location: "Shelter #42, Central Park"
+            };
+            
+            document.getElementById('victimName').value = victimData.name;
+            document.getElementById('location').value = victimData.location;
+        }
+        
+        document.getElementById('helpRequestForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = {
+                victimId: document.getElementById('victimId').value,
+                resourceId: document.getElementById('resourceId').value,
+                quantity: document.getElementById('quantity').value,
+                priority: document.getElementById('priority').value,
+                notes: document.getElementById('notes').value
+            };
+            
+            // This would be replaced with an actual API call to submit the request
+            console.log('Submitting request:', formData);
+            alert('Help request submitted successfully!');
+            
+            // Reset form
+            document.getElementById('helpRequestForm').reset();
+            document.getElementById('victimName').value = '';
+            document.getElementById('location').value = '';
+        });
+        
+        // Load previous requests - this would be an API call in a real application
+        function loadPreviousRequests() {
+            // Simulated data
+            const previousRequests = [
+                {
+                    requestId: 1001,
+                    resource: "Water",
+                    quantity: 5,
+                    status: "fulfilled",
+                    priority: "high",
+                    requestedDate: "2025-04-22 14:30:00"
+                },
+                {
+                    requestId: 1002,
+                    resource: "Medicine",
+                    quantity: 2,
+                    status: "pending",
+                    priority: "critical",
+                    requestedDate: "2025-04-23 09:15:00"
+                }
+            ];
+            
+            const tableBody = document.getElementById('requestsTableBody');
+            
+            if (previousRequests.length > 0) {
+                tableBody.innerHTML = '';
+                
+                previousRequests.forEach(request => {
+                    const row = document.createElement('tr');
+                    
+                    // Apply status-based styling
+                    let statusStyle = '';
+                    switch(request.status) {
+                        case 'pending':
+                            statusStyle = 'color: #f39c12;';
+                            break;
+                        case 'approved':
+                            statusStyle = 'color: #3498db;';
+                            break;
+                        case 'fulfilled':
+                            statusStyle = 'color: #2ecc71;';
+                            break;
+                        case 'rejected':
+                            statusStyle = 'color: #e74c3c;';
+                            break;
+                    }
+                    
+                    // Priority styling
+                    let priorityStyle = '';
+                    switch(request.priority) {
+                        case 'low':
+                            priorityStyle = 'color: #7f8c8d;';
+                            break;
+                        case 'medium':
+                            priorityStyle = 'color: #3498db;';
+                            break;
+                        case 'high':
+                            priorityStyle = 'color: #f39c12;';
+                            break;
+                        case 'critical':
+                            priorityStyle = 'color: #e74c3c;';
+                            break;
+                    }
+                    
+                    row.innerHTML = `
+                        <td style="padding: 10px; border-bottom: 1px solid var(--border-color);">${request.requestId}</td>
+                        <td style="padding: 10px; border-bottom: 1px solid var(--border-color);">${request.resource}</td>
+                        <td style="padding: 10px; border-bottom: 1px solid var(--border-color);">${request.quantity}</td>
+                        <td style="padding: 10px; border-bottom: 1px solid var(--border-color); text-transform: capitalize; font-weight: bold; ${statusStyle}">${request.status}</td>
+                        <td style="padding: 10px; border-bottom: 1px solid var(--border-color); text-transform: capitalize; ${priorityStyle}">${request.priority}</td>
+                        <td style="padding: 10px; border-bottom: 1px solid var(--border-color);">${request.requestedDate}</td>
+                    `;
+                    
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+        
+        // Load previous requests on page load
+        loadPreviousRequests();
+    </script>
+</body>
+</html>
